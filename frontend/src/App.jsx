@@ -21,7 +21,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/"
+          path="/Tiktok_Jam"
           element={
             <ProtectedRoute>
               <Home />
