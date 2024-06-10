@@ -8,5 +8,5 @@ export default defineConfig({
     https: true
   },
   plugins: [react(), mkcert()],
-  base: "/Tiktok_jam/"
+  base: "/Tiktok_Jam/"
 })
