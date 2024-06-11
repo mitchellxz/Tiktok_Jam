@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SpotifyAuth from "./pages/SpotifyAuth";
+import TiktokAuth from "./pages/TiktokAuth";
 
 function Logout() {
   localStorage.clear();
@@ -18,7 +19,7 @@ function RegisterAndLogout() {
 
 function App() {
   return (
-    <HashRouter basename={import.meta.env.BASE_URL}>
+    <HashRouter>
       <Routes>
         <Route
           path="/"
@@ -32,7 +33,8 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="/spauth" element={<SpotifyAuth />} />
-        <Route path="*" element={<NotFound />}></Route>
+        <Route path="/tauth" element={<TiktokAuth />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>
   );

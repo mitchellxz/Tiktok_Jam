@@ -1,5 +1,6 @@
 const REDIRECT_URI = "https://mitchellxz.github.io/Tiktok_Jam/callback/";
 const SCOPE = "user.info.basic";
+const CLIENT_KEY = import.meta.env.VITE_TIKTOK_CLIENT_KEY;
 
 const csrfState = Math.random().toString(36).substring(2);
 
@@ -30,7 +31,7 @@ async function loginWithTiktok() {
 
   window.location.assign(
     "https://www.tiktok.com/v2/auth/authorize/?client_key=" +
-      import.meta.env.TIKTOK_CLIENT_KEY +
+      CLIENT_KEY +
       "&response_type=code&scope=" +
       SCOPE +
       "&redirect_uri=" +

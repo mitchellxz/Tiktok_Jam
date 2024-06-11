@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 
-function SpotifyAuth() {
+function TiktokAuth() {
   const [token, setToken] = useState(null);
-  const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_KEY;
-  const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
-
-  console.log(CLIENT_ID);
+  const CLIENT_KEY = import.meta.env.VITE_TIKTOK_CLIENT_KEY;
+  const CLIENT_SECRET = import.meta.env.VITE_TIKTOK_CLIENT_SECRET;
 
   useEffect(() => {
     var authParameters = {
@@ -14,12 +12,13 @@ function SpotifyAuth() {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body:
-        "grant_type=client_credentials&client_id=" +
-        CLIENT_ID +
+        "client_key=" +
+        CLIENT_KEY +
         "&client_secret=" +
-        CLIENT_SECRET,
+        CLIENT_SECRET +
+        "&grant_type=client_credentials",
     };
-    fetch("https://accounts.spotify.com/api/token", authParameters)
+    fetch("https://open.tiktokapis.com/v2/oauth/token/", authParameters)
       .then((result) => result.json())
       .then((data) => setToken(data.access_token));
   }, []);
@@ -30,4 +29,4 @@ function SpotifyAuth() {
   );
 }
 
-export default SpotifyAuth;
+export default TiktokAuth;
