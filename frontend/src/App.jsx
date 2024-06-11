@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
@@ -18,7 +18,7 @@ function RegisterAndLogout() {
 
 function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <HashRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route
           path="/"
@@ -34,7 +34,7 @@ function App() {
         <Route path="/spauth" element={<SpotifyAuth />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
