@@ -28,10 +28,10 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/tiktok_jam/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<RegisterAndLogout />} />
-        <Route path="/tiktok_jam/spauth" element={<SpotifyAuth />} />
+        <Route path="/spauth" element={<SpotifyAuth />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
