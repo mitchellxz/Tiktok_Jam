@@ -19,7 +19,7 @@ function RegisterAndLogout() {
 function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <Routes>
+      <Routes basename={import.meta.env.BASE_URL}>
         <Route
           path="/"
           element={
@@ -30,7 +30,11 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<RegisterAndLogout />} />
+        <Route
+          basename={import.meta.env.BASE_URL}
+          path="/register"
+          element={<RegisterAndLogout />}
+        />
         <Route path="/spauth" element={<SpotifyAuth />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
