@@ -1,4 +1,4 @@
-const REDIRECT_URI = "http://localhost:5173/Random";
+const REDIRECT_URI = "https://mitchellxz.github.io/Tiktok_Jam/callback/";
 const SCOPE = "user.info.basic";
 
 const csrfState = Math.random().toString(36).substring(2);
@@ -46,7 +46,7 @@ async function loginWithTiktok() {
 function Login() {
   return (
     <>
-      <button onClick={loginWithTiktok}>Login with TikTok</button>;
+      <button onClick={loginWithTiktok}>Login with TikTok here!</button>
     </>
   );
   //return <Form route="/api/token/" method="login" />;
