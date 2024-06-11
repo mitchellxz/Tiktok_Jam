@@ -18,10 +18,10 @@ function RegisterAndLogout() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route
-          path="/Tiktok_Jam"
+          path="/"
           element={
             <ProtectedRoute>
               <Home />
