@@ -2,29 +2,36 @@ import { useState, useEffect } from "react";
 
 function TiktokAuth() {
   const [token, setToken] = useState(null);
-  const CLIENT_KEY = import.meta.env.VITE_TIKTOK_CLIENT_KEY;
-  const CLIENT_SECRET = import.meta.env.VITE_TIKTOK_CLIENT_SECRET;
 
   useEffect(() => {
-    var authParameters = {
+    const requestData = {
+      grant_type: "client_credentials",
+    };
+
+    fetch("http://localhost:8000/api/get-tiktok-token/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
-      body:
-        "client_key=" +
-        CLIENT_KEY +
-        "&client_secret=" +
-        CLIENT_SECRET +
-        "&grant_type=client_credentials",
-    };
-    fetch("https://open.tiktokapis.com/v2/oauth/token/", authParameters)
+      body: JSON.stringify(requestData),
+    })
       .then((result) => result.json())
-      .then((data) => setToken(data.access_token));
+      .then((data) => {
+        if (data.access_token) {
+          setToken(data.access_token);
+        } else {
+          console.error("Failed to get token:", data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }, []);
+
   return (
     <>
       <h1>{token ? "Authorized" : "Authorizing"}</h1>
+      <h1> {token}</h1>
     </>
   );
 }
