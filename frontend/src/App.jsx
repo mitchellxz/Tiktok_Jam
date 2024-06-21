@@ -4,8 +4,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
-import SpotifyAuth from "./pages/SpotifyAuth";
-import TiktokAuth from "./pages/TiktokAuth";
+import Random from "./pages/Random";
 
 function Logout() {
   localStorage.clear();
@@ -32,8 +31,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<RegisterAndLogout />} />
-        <Route path="/spauth" element={<SpotifyAuth />} />
-        <Route path="/tauth" element={<TiktokAuth />} />
+        <Route path="/random" element={<Random />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>

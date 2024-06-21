@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import api from "../api";
 
-function Login() {
+const HomePage = () => {
   const [authCode, setAuthCode] = useState(null);
   const [redirect, setRedirect] = useState(false);
+
   const location = window.location.href;
+  console.log(window.location.href);
 
   useEffect(() => {
     let code = location.split("code=")[1];
@@ -43,7 +45,7 @@ function Login() {
         }
       })
       .catch((error) => {
-        console.log("Error sending to backend:", error);
+        console.error("Error sending code to backend:", error); // Debugging
       });
   };
 
@@ -56,6 +58,6 @@ function Login() {
       <button onClick={handleLogin}>Login with Spotify</button>
     </div>
   );
-}
+};
 
-export default Login;
+export default HomePage;

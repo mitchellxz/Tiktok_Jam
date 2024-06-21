@@ -1,15 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from rest_framework import generics
-from .serializers import UserSerializer, NoteSerializer
+from .serializers import UserSerializer, NoteSerializer, SpotifyProfileSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Note
+from .models import Note, SpotifyProfile
 
 from rest_framework.views import APIView
 import os
 from rest_framework.response import Response
 import requests
-
 
 class NoteListCreate(generics.ListCreateAPIView):
     serializer_class = NoteSerializer
@@ -38,43 +37,68 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
-class GetTiktokToken(APIView):
+
+class SpotifyCallbackView(APIView):
+    permission_classes = [AllowAny]
+    REDIRECT_URI = os.getenv('SPOTIFY_REDIRECT_URI')
+
+    def post(self, request):
+        code = request.data.get('code')
+        if not code:
+            return Response({"error": "Code not provided"}, status=400)
+        
+        
+        # Exchange code for access token
+        token_url = "https://accounts.spotify.com/api/token"
+        response = requests.post(token_url, {
+            'grant_type': 'authorization_code',
+            'code': code,
+            'redirect_uri': os.getenv('SPOTIFY_REDIRECT_URI'),
+            'client_id': os.getenv('SPOTIFY_CLIENT_KEY'),
+            'client_secret': os.getenv('SPOTIFY_CLIENT_SECRET'),
+        })
+        
+        if response.status_code != 200:
+            return Response(response.json(), status=response.status_code)
+        
+        token_data = response.json()
+        access_token = token_data['access_token']
+        refresh_token = token_data.get('refresh_token')
+
+        profile_url = "https://api.spotify.com/v1/me"
+        profile_response = requests.get(profile_url, headers={
+            'Authorization': f'Bearer {access_token}'
+        })
+
+        if profile_response.status_code != 200:
+            return Response(profile_response.json(), status=profile_response.status_code)
+        
+        profile_data = profile_response.json()
+
+
+        profile, created = SpotifyProfile.objects.update_or_create(
+            spotify_id = profile_data['id'],
+            defaults= {
+                'display_name': profile_data['display_name'],
+                'email': profile_data['email'],
+                'access_token': access_token,
+                'refresh_token': refresh_token,
+            }
+        )
+        
+        return Response({
+            'token_data': token_data,
+            'profile_data': profile_data
+        })
+    
+class SpotifyProfileView(generics.ListAPIView):
+    serializer_class = SpotifyProfileSerializer
     permission_classes = [AllowAny]
 
-    def post(self, request, *args, **kwargs):
-        client_key = os.getenv('TIKTOK_CLIENT_KEY')
-        client_secret = os.getenv('TIKTOK_CLIENT_SECRET')
-        grant_type = request.data.get('grant_type')
-
-        if grant_type == 'client_credentials':
-            return self.get_client_credentials_token(client_key, client_secret)
-        elif grant_type == 'authorization_code':
-            code = request.data.get('code')
-            redirect_uri = request.data.get('redirect_uri')
-            code_verifier = request.data.get('code_verifier')
-            return self.get_authorization_code_token(client_key, client_secret, code, redirect_uri, code_verifier)
-        else:
-            return Response({'error': 'Invalid grant_type'}, status=400)
+    def get_queryset(self):
+        queryset = SpotifyProfile.objects.all()
+        access_token = self.request.query_params.get('access_token', None)
         
-    def get_client_credentials_token(self, client_key, client_secret):
-        data = {
-            'client_key': client_key,
-            'client_secret': client_secret,
-            'grant_type': 'client_credentials',
-        }
-
-        response = requests.post('https://open.tiktokapis.com/v2/oauth/token/', data=data)
-        return Response(response.json())
-    
-    def get_authorization_code_token(self, client_key, client_secret, code, redirect_uri, code_verifier):
-        data = {
-            'client_key': client_key,
-            'client_secret': client_secret,
-            'code': code,
-            'grant_type': 'authorization_code',
-            'redirect_uri': redirect_uri,
-            'code_verifier': code_verifier,
-        }
-
-        response = requests.post('https://open.tiktokapis.com/v2/oauth/token/', data=data)
-        return Response(response.json())
+        if access_token is not None:
+            queryset = queryset.filter(access_token=access_token)
+        return queryset
