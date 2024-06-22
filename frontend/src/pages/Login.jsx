@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import api from "../api";
+import SpotifyAuth from "../components/SpotifyAuth";
 
 function Login() {
   const [authCode, setAuthCode] = useState(null);
@@ -15,7 +16,9 @@ function Login() {
 
     if (code && authCode !== code) {
       setAuthCode(code);
+      localStorage.setItem("code", code);
       sendCodeToBackend(code);
+      setRedirect(true);
     }
   }, [location, authCode]);
 
@@ -32,7 +35,7 @@ function Login() {
   const sendCodeToBackend = (code) => {
     console.log("Sending code to backend:", code); // Debugging
     api
-      .post("/api/spotify/callback/", { code })
+      .post("http://127.0.0.1:8000/api/spotify/callback/", { code })
       .then((response) => {
         const { token_data } = response.data;
         console.log("Backend response:", response.data); // Debugging
@@ -54,6 +57,7 @@ function Login() {
   return (
     <div>
       <button onClick={handleLogin}>Login with Spotify</button>
+      <SpotifyAuth />
     </div>
   );
 }

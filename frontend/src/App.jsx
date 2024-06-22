@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Random from "./pages/Random";
+import New from "./pages/New";
 
 function Logout() {
   localStorage.clear();
@@ -32,6 +33,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="/random" element={<Random />} />
+        <Route path="/new" element={<New />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>
