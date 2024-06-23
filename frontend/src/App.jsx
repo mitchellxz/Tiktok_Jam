@@ -6,6 +6,8 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Random from "./pages/Random";
 import New from "./pages/New";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 
 function Logout() {
   localStorage.clear();
@@ -34,6 +36,8 @@ function App() {
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="/random" element={<Random />} />
         <Route path="/new" element={<New />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="/termsofservice" element={<TermsOfService />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
