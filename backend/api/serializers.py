@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Note, SpotifyProfile
+from .models import Note
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,8 +16,3 @@ class NoteSerializer(serializers.ModelSerializer):
         model = Note
         fields = ["id", "title", "content", "created_at", "author"]
         extra_kwargs = {"author": {"read_only": True}}
-
-class SpotifyProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SpotifyProfile
-        fields = ["spotify_id", "display_name", "email", "access_token", "refresh_token"]

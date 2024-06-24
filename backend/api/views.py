@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from rest_framework import generics
-from .serializers import UserSerializer, NoteSerializer, SpotifyProfileSerializer
+from .serializers import UserSerializer, NoteSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Note, SpotifyProfile
+from .models import Note
 
 from rest_framework.views import APIView
 import os
@@ -74,31 +74,8 @@ class SpotifyCallbackView(APIView):
             return Response(profile_response.json(), status=profile_response.status_code)
         
         profile_data = profile_response.json()
-
-
-        profile, created = SpotifyProfile.objects.update_or_create(
-            spotify_id = profile_data['id'],
-            defaults= {
-                'display_name': profile_data['display_name'],
-                'email': profile_data['email'],
-                'access_token': access_token,
-                'refresh_token': refresh_token,
-            }
-        )
         
         return Response({
             'token_data': token_data,
             'profile_data': profile_data
         })
-    
-class SpotifyProfileView(generics.ListAPIView):
-    serializer_class = SpotifyProfileSerializer
-    permission_classes = [AllowAny]
-
-    def get_queryset(self):
-        queryset = SpotifyProfile.objects.all()
-        access_token = self.request.query_params.get('access_token', None)
-        
-        if access_token is not None:
-            queryset = queryset.filter(access_token=access_token)
-        return queryset
