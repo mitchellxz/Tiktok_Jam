@@ -1,0 +1,38 @@
+.slider {
+    display: flex;
+    position: relative;
+    outline: none;
+    border-radius: 15px;    
+    cursor: pointer;
+    appearance: none;
+    height: 10px;
+    width:75%;
+    font-family: "Montserrat", sans-serif;
+}
+
+h2, h3, p, .value {
+    font-family: "Montserrat", sans-serif;
+    margin-block:2%;
+    color:#fff;
+    text-transform: capitalize;
+}
+
+p {
+    text-align: left;
+}
+
+.value {
+    margin-top: 0;
+    
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+}
+  

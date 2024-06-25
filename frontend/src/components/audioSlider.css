@@ -1,0 +1,48 @@
+.rec-songs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.rhap_container {
+    background-color: rgba(255, 255, 255, 0) !important;
+    width: 49% !important;
+    border-color: rgb(130, 103, 255);
+    border-style: solid;
+    border-radius: 10px;
+    font-family: "montserrat" !important;
+    margin-bottom: 2%;
+}
+
+.rhap_time {
+    color: #fff !important;
+}
+
+.rhap_progress-filled {
+    background-color: #8a78ff !important;
+}
+
+.rhap_additional-controls {
+    color: #fff;
+    width:5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+}
+
+@media (max-width: 768px) {
+    .rec-songs {
+        flex-direction: column;
+    }
+
+    .rhap_container {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .rhap_additional-controls {
+        font-size: 2.9vw;
+    }
+}
