@@ -1,10 +1,10 @@
 const sliderData = [
   {
     id: 1,
-    sliderName: "accousticness",
+    sliderName: "acousticness",
     min: 0,
     max: 1,
-    description: "The higher the value, the more accoustic the song is.",
+    description: "The higher the value, the more acoustic the song is.",
   },
   {
     id: 2,

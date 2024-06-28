@@ -1,22 +1,27 @@
 import "./mainSong.css";
 import Slider from "./Slider";
 import sliderData from "./SliderCreate";
-import songData from "./SongData";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
+import useTrackInfo from "./useTrackInfo";
+import useTrackFeatures from "./useTrackFeatures";
 
 function MainSong({ onConfirm }) {
-  const currentSong = songData[0];
+  const queryList = [
+    "track:How Sweet artist:NewJeans",
+    "track:Ditto artist:NewJeans",
+  ];
 
-  const [sliderValues, setSliderValues] = useState(
-    sliderData.reduce((acc, slider) => {
-      acc[slider.sliderName.toLowerCase()] =
-        currentSong[slider.sliderName.toLowerCase()];
-      return acc;
-    }, {})
-  );
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [query, setQuery] = useState(queryList[currentIndex]);
+  const [trackId, setTrackId] = useState(null);
+  const [sliderValues, setSliderValues] = useState({});
+  const [trackfeatures, setTrackFeatures] = useState({});
+
+  const trackInfo = useTrackInfo(query);
+  const features = useTrackFeatures(trackId);
 
   const handleSliderChange = (sliderName, value) => {
     setSliderValues((prev) => ({
@@ -30,6 +35,32 @@ function MainSong({ onConfirm }) {
     console.log(sliderValues);
   };
 
+  const handleNewSongClick = () => {
+    const nextIndex = (currentIndex + 1) % queryList.length;
+    setCurrentIndex(nextIndex);
+    setQuery(queryList[nextIndex]);
+
+    setTrackId(trackInfo?.track_id);
+  };
+
+  useEffect(() => {
+    if (features) {
+      setTrackFeatures(features);
+    }
+  }, [features]);
+
+  useEffect(() => {
+    if (trackId && trackfeatures) {
+      console.log("Track ID", trackId);
+      const resetValues = sliderData.reduce((acc, slider) => {
+        acc[slider.sliderName.toLowerCase()] =
+          trackfeatures[slider.sliderName.toLowerCase()] || 0;
+        return acc;
+      }, {});
+      setSliderValues(resetValues);
+    }
+  }, [trackId, trackfeatures]);
+
   return (
     <div className="border">
       <div className="col-left">
@@ -39,9 +70,10 @@ function MainSong({ onConfirm }) {
             <Slider
               MIN={slider.min}
               MAX={slider.max}
-              initialValue={currentSong[slider.sliderName.toLowerCase()]}
+              initialValue={sliderValues[slider.sliderName.toLowerCase()]}
               onChange={(value) => handleSliderChange(slider.sliderName, value)}
             />
+
             <ReactTooltip
               id={slider.sliderName}
               place="bottom"
@@ -56,16 +88,16 @@ function MainSong({ onConfirm }) {
           </React.Fragment>
         ))}
       </div>
-      <div className="col-mid">
-        <img src={currentSong.image} className="img-fluid" alt="..."></img>
-        <div className="p-song-details">
-          <p className="p-song-name">{currentSong.songName}</p>
 
-          <p className="p-song-artist">{currentSong.artist}</p>
-          <p className="p-song-release-date">{currentSong.releaseDate}</p>
+      <div className="col-mid">
+        <img src={trackInfo?.imageURL} className="img-fluid" alt="..."></img>
+        <div className="p-song-details">
+          <p className="p-song-name">{trackInfo?.name}</p>
+          <p className="p-song-artist">{trackInfo?.artist}</p>
+          <p className="p-song-release-date">{trackInfo?.releaseDate}</p>
         </div>
         <div className="btn-div">
-          <button type="button" className="btn">
+          <button type="button" className="btn" onClick={handleNewSongClick}>
             New Song
           </button>
           <button type="button" className="btn" onClick={handleConfirm}>
@@ -80,9 +112,10 @@ function MainSong({ onConfirm }) {
             <Slider
               MIN={slider.min}
               MAX={slider.max}
-              initialValue={currentSong[slider.sliderName.toLowerCase()]}
+              initialValue={sliderValues[slider.sliderName.toLowerCase()]}
               onChange={(value) => handleSliderChange(slider.sliderName, value)}
             />
+
             <ReactTooltip
               id={slider.sliderName}
               place="bottom"
@@ -103,6 +136,7 @@ function MainSong({ onConfirm }) {
 
 MainSong.propTypes = {
   onConfirm: PropTypes.func,
+  trackFeatures: PropTypes.object,
 };
 
 export default MainSong;

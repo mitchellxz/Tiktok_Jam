@@ -1,36 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./slider.css";
 import PropTypes from "prop-types";
 
 function Slider({ MIN, MAX, initialValue, onChange }) {
-  var [value, setValue] = useState(initialValue);
-  if (MIN == 0 && MAX == 1) {
-    MIN = 0;
-    MAX = 100;
-    value = value * 100;
-  }
+  const [value, setValue] = useState(initialValue ?? MIN);
+
+  useEffect(() => {
+    setValue(initialValue ?? MIN);
+  }, [initialValue, MIN]);
 
   const gradientPercentage = ((value - MIN) / (MAX - MIN)) * 100;
 
   const sliderStyle = {
-    background: `linear-gradient(to right, #5C6BC0 ${gradientPercentage}%,
-     #9FA8DA ${gradientPercentage}%
-     )`,
+    background: `linear-gradient(to right, #5C6BC0 ${gradientPercentage}%, #9FA8DA ${gradientPercentage}%)`,
   };
 
   const handleOnChange = (e) => {
-    if (MIN === 0 && MAX === 100) {
-      setValue(e.target.value / 100);
-      onChange(e.target.value / 100);
-    } else {
-      setValue(e.target.value);
-      onChange(e.target.value);
-    }
+    const newValue = parseFloat(e.target.value);
+    setValue(newValue);
+    onChange(newValue);
   };
-  const displayValue =
-    MIN === 0 && MAX === 100
-      ? ((value - MIN) / (MAX - MIN)).toFixed(2)
-      : Math.round(Number(value));
+
   return (
     <>
       <input
@@ -41,17 +31,18 @@ function Slider({ MIN, MAX, initialValue, onChange }) {
         style={sliderStyle}
         min={MIN}
         max={MAX}
+        step={MIN === 0 && MAX === 1 ? 0.01 : 1} // Adjust the step for 0-1 range
       />
-      <div className="value">{displayValue}</div>
+      <div className="value">{value}</div>
     </>
   );
 }
 
 Slider.propTypes = {
-  MIN: PropTypes.number,
-  MAX: PropTypes.number,
+  MIN: PropTypes.number.isRequired,
+  MAX: PropTypes.number.isRequired,
   initialValue: PropTypes.number,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Slider;
