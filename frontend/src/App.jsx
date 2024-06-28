@@ -8,6 +8,8 @@ import Random from "./pages/Random";
 import New from "./pages/New";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
+import Callback from "./pages/Callback";
+import Success from "./pages/Success";
 
 function Logout() {
   localStorage.clear();
@@ -38,6 +40,8 @@ function App() {
         <Route path="/new" element={<New />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/termsofservice" element={<TermsOfService />} />
+        <Route path="/callback" element={<Callback />} />
+        <Route path="/success" element={<Success />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
