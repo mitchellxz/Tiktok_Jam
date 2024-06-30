@@ -8,15 +8,33 @@ import React from "react";
 import useTrackInfo from "./useTrackInfo";
 import useTrackFeatures from "./useTrackFeatures";
 import { defaultValues } from "./defaultValues";
+import api from "../api";
 
 function MainSong({ onConfirm, onNewSong, setTrackFeatures, setTrackInfo }) {
+  const [songs, setSongs] = useState([]);
   const queryList = [
     "track:How Sweet artist:NewJeans",
     "track:Ditto artist:NewJeans",
   ];
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("http://127.0.0.1:8000/api/songs/");
+        const songList = response.data.map(
+          (song) => `track:${song.song_name} artist:${song.artist_name}`
+        );
+        console.log(songList);
+        setSongs(songList);
+      } catch (error) {
+        console.error("Error fetching songs:", error);
+      }
+    };
+    fetchData();
+  }, [setSongs]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [query, setQuery] = useState(queryList[currentIndex]);
+  const [query, setQuery] = useState(songs[currentIndex]);
   const [trackId, setTrackId] = useState(null);
   const [sliderValues, setSliderValues] = useState(defaultValues);
 
@@ -36,9 +54,9 @@ function MainSong({ onConfirm, onNewSong, setTrackFeatures, setTrackInfo }) {
   };
 
   const handleNewSongClick = () => {
-    const nextIndex = (currentIndex + 1) % queryList.length;
+    const nextIndex = (currentIndex + 1) % songs.length;
     setCurrentIndex(nextIndex);
-    setQuery(queryList[nextIndex]);
+    setQuery(songs[nextIndex]);
 
     setTrackId(trackInfo?.track_id);
     onNewSong();

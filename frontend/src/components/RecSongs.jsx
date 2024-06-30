@@ -10,9 +10,9 @@ function RecSongs(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const accessToken = localStorage.getItem("access_token");
+      const accessToken = localStorage.getItem("spotify_access_token");
       const url =
-        `https://api.spotify.com/v1/recommendations?limit=5&seed_artists=` +
+        `https://api.spotify.com/v1/recommendations?limit=5&target_popularity=50&seed_artists=` +
         `${props.seed_artists}&target_acousticness=` +
         `${props.trackFeatures.acousticness}&target_danceability=` +
         `${props.trackFeatures.danceability}&target_energy=` +

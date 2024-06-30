@@ -10,7 +10,7 @@ function SearchSong() {
     const fetchData = async () => {
       // changing to authentication token instead of access token
       // so only this page and features will have spotify authentication
-      const accessToken = localStorage.getItem("access_token");
+      const accessToken = localStorage.getItem("spotify_access_token");
       const url = `https://api.spotify.com/v1/search?q=${encodedQuery}&type=track`;
 
       try {

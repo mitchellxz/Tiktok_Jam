@@ -4,7 +4,7 @@ import SearchSong from "../components/SearchSong";
 
 function Random() {
   const [user, setUser] = useState(null);
-  const accessToken = localStorage.getItem("access_token");
+  const accessToken = localStorage.getItem("spotify_access_token");
 
   // get https://api.spotify.com/v1/me
   // Authorization: Bearer access_token

@@ -6,7 +6,7 @@ const useTrackInfo = (query) => {
   useEffect(() => {
     const fetchData = async () => {
       const encodedQuery = encodeURIComponent(query);
-      const accessToken = localStorage.getItem("access_token");
+      const accessToken = localStorage.getItem("spotify_access_token");
       const url = `https://api.spotify.com/v1/search?q=${encodedQuery}&type=track`;
 
       try {

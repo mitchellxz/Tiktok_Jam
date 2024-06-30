@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import Recommend from "./Recommend";
 
 function Features(props) {
   const [trackFeatures, setTrackFeatures] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const accessToken = localStorage.getItem("access_token");
+      const accessToken = localStorage.getItem("spotify_access_token");
       const url = `https://api.spotify.com/v1/audio-features/${props.track_id}`;
 
       try {
@@ -17,7 +16,6 @@ function Features(props) {
           },
         });
         const data = await response.json();
-        console.log(data);
         setTrackFeatures({
           acousticness: data.acousticness,
           danceability: data.danceability,
@@ -56,13 +54,6 @@ function Features(props) {
       ) : (
         <p>Loading...</p>
       )}
-      <div>
-        <h3>Recommendations..</h3>
-        <Recommend
-          trackFeatures={trackFeatures}
-          seed_artists={props.artist_id}
-        />
-      </div>
     </>
   );
 }

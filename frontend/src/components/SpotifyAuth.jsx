@@ -27,7 +27,7 @@ function SpotifyAuth() {
       if (response.ok) {
         const data = await response.json();
         setAccessToken(data.access_token);
-        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("spotify_access_token", data.access_token);
         setRedirect(true);
       } else {
         console.error("Failed to fetch access token", response.statusText);

@@ -5,7 +5,7 @@ const useTrackFeatures = (track_id) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const accessToken = localStorage.getItem("access_token");
+      const accessToken = localStorage.getItem("spotify_access_token");
       const url = `https://api.spotify.com/v1/audio-features/${track_id}`;
 
       try {

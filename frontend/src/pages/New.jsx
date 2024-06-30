@@ -11,19 +11,6 @@ function New() {
   console.log("track features: " + JSON.stringify(trackFeatures));
   const [songs, setSongs] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get("http://127.0.0.1:8000/api/songs/");
-        console.log(response.data);
-        setSongs(response.data);
-      } catch (error) {
-        console.error("Error fetching songs:", error);
-      }
-    };
-    fetchData();
-  }, []);
-
   const handleConfirmClick = () => {
     setShowRecommended(false);
     setTimeout(() => {
