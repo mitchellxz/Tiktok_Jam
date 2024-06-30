@@ -7,8 +7,9 @@ import { useState, useEffect } from "react";
 import React from "react";
 import useTrackInfo from "./useTrackInfo";
 import useTrackFeatures from "./useTrackFeatures";
+import { defaultValues } from "./defaultValues";
 
-function MainSong({ onConfirm }) {
+function MainSong({ onConfirm, onNewSong, setTrackFeatures, setTrackInfo }) {
   const queryList = [
     "track:How Sweet artist:NewJeans",
     "track:Ditto artist:NewJeans",
@@ -17,8 +18,7 @@ function MainSong({ onConfirm }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [query, setQuery] = useState(queryList[currentIndex]);
   const [trackId, setTrackId] = useState(null);
-  const [sliderValues, setSliderValues] = useState({});
-  const [trackfeatures, setTrackFeatures] = useState({});
+  const [sliderValues, setSliderValues] = useState(defaultValues);
 
   const trackInfo = useTrackInfo(query);
   const features = useTrackFeatures(trackId);
@@ -32,7 +32,7 @@ function MainSong({ onConfirm }) {
 
   const handleConfirm = () => {
     onConfirm(sliderValues);
-    console.log(sliderValues);
+    setTrackFeatures(sliderValues);
   };
 
   const handleNewSongClick = () => {
@@ -41,25 +41,32 @@ function MainSong({ onConfirm }) {
     setQuery(queryList[nextIndex]);
 
     setTrackId(trackInfo?.track_id);
+    onNewSong();
   };
 
   useEffect(() => {
     if (features) {
       setTrackFeatures(features);
     }
-  }, [features]);
+  }, [features, setTrackFeatures]);
 
   useEffect(() => {
-    if (trackId && trackfeatures) {
+    if (trackInfo) {
+      setTrackInfo(trackInfo);
+    }
+  }, [trackInfo, setTrackInfo]);
+
+  useEffect(() => {
+    if (trackId && features) {
       console.log("Track ID", trackId);
       const resetValues = sliderData.reduce((acc, slider) => {
-        acc[slider.sliderName.toLowerCase()] =
-          trackfeatures[slider.sliderName.toLowerCase()] || 0;
+        const sliderNameLower = slider.sliderName.toLowerCase();
+        acc[sliderNameLower] = features[sliderNameLower] || 0;
         return acc;
       }, {});
       setSliderValues(resetValues);
     }
-  }, [trackId, trackfeatures]);
+  }, [trackId, features]);
 
   return (
     <div className="border">
@@ -136,7 +143,9 @@ function MainSong({ onConfirm }) {
 
 MainSong.propTypes = {
   onConfirm: PropTypes.func,
-  trackFeatures: PropTypes.object,
+  onNewSong: PropTypes.func,
+  setTrackFeatures: PropTypes.func,
+  setTrackInfo: PropTypes.func,
 };
 
 export default MainSong;
