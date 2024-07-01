@@ -1,11 +1,9 @@
-import { useEffect, useState, useRef } from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import api from "../api";
+import SpotifyAuth from "../components/SpotifyAuth";
 
 function Callback() {
   const [code, setCode] = useState("");
-  const [redirect, setRedirect] = useState(false);
-  const attempt = useRef(false);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -17,23 +15,21 @@ function Callback() {
       return;
     }
 
-    if (codeParam && !attempt.current) {
+    if (codeParam) {
       setCode(codeParam);
       sendCodeToBackend(codeParam);
-      attempt.current = true;
     }
   }, []);
 
-  const sendCodeToBackend = (code) => {
+  const sendCodeToBackend = async (code) => {
     console.log("sending code to backend:", code);
-    api
+    await api
       .post("http://127.0.0.1:8000/api/tiktok/callback/", { code })
       .then((response) => {
         const { token_data } = response.data;
         console.log("Backend response:", response.data); // Debugging
         if (token_data) {
           localStorage.setItem("access_token", token_data.access_token);
-          setRedirect(true);
         }
       })
       .catch((error) => {
@@ -41,17 +37,7 @@ function Callback() {
       });
   };
 
-  if (redirect) {
-    return <Navigate to="/Success" />;
-  }
-
-  return (
-    <>
-      <h1>
-        <p>{code}</p>
-      </h1>
-    </>
-  );
+  return <>{code && <SpotifyAuth />}</>;
 }
 
 export default Callback;

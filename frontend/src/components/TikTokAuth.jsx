@@ -1,6 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import SpotifyAuth from "./SpotifyAuth";
 
 function TikTokAuth() {
+  const [redirect, setRedirect] = useState(false);
   const generateRandomString = (length) => {
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

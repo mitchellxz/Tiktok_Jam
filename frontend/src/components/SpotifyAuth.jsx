@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
 function SpotifyAuth() {
-  const [accessToken, setAccessToken] = useState(null);
   const [redirect, setRedirect] = useState(false);
+
+  useEffect(() => {
+    handleLogin();
+  }, []);
 
   const handleLogin = async () => {
     const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_KEY;
@@ -26,7 +29,6 @@ function SpotifyAuth() {
 
       if (response.ok) {
         const data = await response.json();
-        setAccessToken(data.access_token);
         localStorage.setItem("spotify_access_token", data.access_token);
         setRedirect(true);
       } else {
@@ -40,17 +42,6 @@ function SpotifyAuth() {
   if (redirect) {
     return <Navigate to="/New" />;
   }
-
-  return (
-    <div>
-      <button onClick={handleLogin}>Get Spotify Token</button>
-      {accessToken && (
-        <div>
-          <p>Access Token: {accessToken}</p>
-        </div>
-      )}
-    </div>
-  );
 }
 
 export default SpotifyAuth;
