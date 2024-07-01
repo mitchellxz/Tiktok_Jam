@@ -44,7 +44,7 @@ function RecSongs(props) {
 
   return (
     <div>
-      <h2>Recommended Songs</h2>
+      <h2 className="rec-h2">Recommended Songs</h2>
       <div className="rec-songs">
         {recommendations ? (
           <>

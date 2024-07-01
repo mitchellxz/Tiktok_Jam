@@ -130,3 +130,24 @@ body {
     }
 }
 
+
+@media (min-width: 2560px) {
+    .col-right, .col-left {
+        font-size: 2.3rem;
+    }
+
+    .p-song-name, .p-song-artist, .p-song-release-date {
+        font-size: 2rem;
+    }
+
+    .btn {
+        font-size: 1.7rem;
+    }
+
+    .heading {
+        font-size: 6.9rem;
+    }
+
+
+}
+

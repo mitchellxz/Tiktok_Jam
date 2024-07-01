@@ -2,3 +2,67 @@ li {
     color: #fff;
 }
 
+@media (min-width: 2560px) {
+    .rec-h2 {
+        font-size:3.5rem;
+    }
+
+    .rec-songs {
+        font-size: 2.2rem;
+    }
+
+    .rhap_container {
+        border-radius: 25px !important;
+        border-width: .3rem !important;
+        padding: 30px 30px !important;
+    }
+
+    .rhap_progress-bar {
+        height: .7rem !important;
+        border-radius: 6px !important;
+        width: 97% !important;
+    }
+
+    .rhap_progress-indicator {
+        width:3rem !important;
+        height:3rem !important;
+        top:-18px !important;
+    }
+
+    .rhap_progress-filled, .rhap_download-progress {
+        border-radius: 6px !important;
+    }
+
+    .rhap_play-pause-button {
+        font-size: 5rem !important;
+        width: 5rem !important;
+        height: 5rem !important;
+    }
+
+    .rhap_volume-button {
+        flex: 0 0 3rem !important;
+        font-size: 3rem !important;
+        width: 3rem !important;
+        height: 3rem !important;
+    }
+
+    .rhap_volume-container {
+        flex: 0 1 150px !important;
+    }
+
+    .rhap_volume-bar {
+        height: 8px !important;
+        border-radius: 4px !important;
+    }
+
+    .rhap_volume-indicator {
+        width: 18px !important;
+        height: 18px !important;
+        top: -5px !important;
+    }
+
+    .rhap_time {
+        font-size: 2rem !important;
+    }
+
+}

@@ -31,6 +31,14 @@
     align-items: flex-start !important;
 }
 
+.rhap_volume-controls {
+    margin-bottom: 3%;
+}
+
+.rhap_play-pause-button {
+    margin-bottom: 49% !important;
+}
+
 @media (max-width: 768px) {
     .rec-songs {
         flex-direction: column;
