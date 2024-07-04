@@ -4,9 +4,9 @@ import { Navigate } from "react-router-dom";
 function SpotifyAuth() {
   const [redirect, setRedirect] = useState(false);
 
-  useEffect(() => {
+  /* useEffect(() => {
     handleLogin();
-  }, []);
+  }, []); */
 
   const handleLogin = async () => {
     const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_KEY;
@@ -42,6 +42,12 @@ function SpotifyAuth() {
   if (redirect) {
     return <Navigate to="/New" />;
   }
+
+  return (
+    <div>
+      <button onClick={handleLogin}>Guest Login</button>
+    </div>
+  );
 }
 
 export default SpotifyAuth;
