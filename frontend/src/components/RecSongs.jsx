@@ -12,8 +12,8 @@ function RecSongs(props) {
     const fetchData = async () => {
       const accessToken = localStorage.getItem("spotify_access_token");
       const url =
-        `https://api.spotify.com/v1/recommendations?limit=5&target_popularity=50&seed_artists=` +
-        `${props.seed_artists}&target_acousticness=` +
+        `https://api.spotify.com/v1/recommendations?limit=5&target_popularity=15&seed_tracks=` +
+        `${props.track_id}&target_acousticness=` +
         `${props.trackFeatures.acousticness}&target_danceability=` +
         `${props.trackFeatures.danceability}&target_energy=` +
         `${props.trackFeatures.energy}&target_instrumentalness=` +
@@ -40,7 +40,7 @@ function RecSongs(props) {
       }
     };
     fetchData();
-  }, [props.trackFeatures, props.seed_artists]);
+  }, [props.trackFeatures, props.track_id]);
 
   return (
     <div>
@@ -70,7 +70,7 @@ function RecSongs(props) {
 }
 
 RecSongs.propTypes = {
-  seed_artists: PropTypes.array,
+  track_id: PropTypes.string,
   trackFeatures: PropTypes.object,
 };
 

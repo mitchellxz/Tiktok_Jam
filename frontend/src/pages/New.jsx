@@ -30,10 +30,7 @@ function New() {
         setTrackInfo={setTrackInfo}
       />
       {showRecommended && (
-        <RecSongs
-          trackFeatures={trackFeatures}
-          seed_artists={trackInfo.artist_id}
-        />
+        <RecSongs trackFeatures={trackFeatures} track_id={trackInfo.track_id} />
       )}
     </>
   );
