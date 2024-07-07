@@ -1,0 +1,41 @@
+.button-div {
+    display: flex;
+    justify-content: center;
+    margin-top:5%;
+    flex-direction: column;
+
+}
+
+.tiktok-button {
+    width:30%;
+    cursor: pointer;
+    background:none;
+    border:none;
+    height: 100%;
+    align-self: center;
+}
+
+.tiktok-button:hover {
+    opacity: .7;
+}
+
+.tiktok-links {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+    padding-top:5%;
+    font-size:1.4vw;
+}
+
+
+@media (max-width: 768px) {
+
+    .tiktok-button {
+        width: 100%;
+    }
+
+    .tiktok-links {
+        font-size: 2vw;
+    }
+
+}

@@ -2,13 +2,14 @@
     display: flex;
     position: relative;
     outline: none;
-    border-radius: 15px;    
+    border-radius: 2vh;    
     cursor: pointer;
     appearance: none;
-    height: 10px;
     width:75%;
     font-family: "Montserrat", sans-serif;
+    height:2vh;
 }
+
 
 h2, h3, p, .value {
     font-family: "Montserrat", sans-serif;
@@ -28,11 +29,23 @@ p {
 
 .slider::-webkit-slider-thumb {
     appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    width: 2.5vh;
+    height: 2.5vh;
+    border-radius: 100%;
     cursor: pointer;
     background: #fff;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
 }
   
+
+
+@media screen and (max-width: 768px) {
+    .slider {
+        height: 2.5vh;
+    }
+
+    .slider::-webkit-slider-thumb {
+        width: 3vh;
+        height: 3vh;
+    }
+}

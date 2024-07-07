@@ -6,7 +6,7 @@ const songData = [
     artist: "Lost Frequencies",
     releaseDate: "2016-10-21",
     image: "https://i.scdn.co/image/ab67616d00001e021c7a48c433f51e82f1f90c0c",
-    accousticness: 0.262,
+    acousticness: 0.262,
     danceability: 0.678,
     energy: 0.742,
     instrumentalness: 0.000001,

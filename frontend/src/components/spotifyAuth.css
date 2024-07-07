@@ -1,0 +1,26 @@
+.guest-button {
+    padding-block: 0.4%;
+    padding-inline: 8%;
+    font-size: 1.5vw;
+    cursor: pointer;
+}
+
+.guest-button:hover {
+    opacity: .7;
+}
+
+.guest-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+
+@media screen and (max-width: 768px) {
+    .guest-button {
+        padding-block: 0.6%;
+        padding-inline: 12%;
+        font-size: 2.5vw;
+    }
+    
+}

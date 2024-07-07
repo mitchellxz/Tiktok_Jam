@@ -108,6 +108,8 @@ function MainSong({ onConfirm, onNewSong, setTrackFeatures, setTrackInfo }) {
                 backgroundColor: "rgb(20, 20, 20)",
                 color: "#fff",
                 fontFamily: "Montserrat",
+                maxWidth: "200px",
+                zIndex: "9999",
               }}
             />
           </React.Fragment>
@@ -150,6 +152,8 @@ function MainSong({ onConfirm, onNewSong, setTrackFeatures, setTrackInfo }) {
                 backgroundColor: "rgb(20, 20, 20)",
                 color: "#fff",
                 fontFamily: "Montserrat",
+                maxWidth: "200px",
+                zIndex: "9999",
               }}
             />
           </React.Fragment>

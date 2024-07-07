@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import "./spotifyAuth.css";
 
 function SpotifyAuth() {
   const [redirect, setRedirect] = useState(false);
@@ -44,8 +45,10 @@ function SpotifyAuth() {
   }
 
   return (
-    <div>
-      <button onClick={handleLogin}>Guest Login</button>
+    <div className="guest-div">
+      <button className="guest-button" onClick={handleLogin}>
+        Guest Login
+      </button>
     </div>
   );
 }

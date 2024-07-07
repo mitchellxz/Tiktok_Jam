@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import SpotifyAuth from "./SpotifyAuth";
+import "./tiktokAuth.css";
+import buttonImage from "../assets/Button_Outlined.png";
 
 function TikTokAuth() {
   const [redirect, setRedirect] = useState(false);
@@ -50,8 +52,10 @@ function TikTokAuth() {
   };
 
   return (
-    <div>
-      <button onClick={handleLogin}>Login with tiktok</button>
+    <div className="button-div">
+      <button className="tiktok-button" onClick={handleLogin}>
+        <img src={buttonImage} alt="TikTok Login Button" />
+      </button>
     </div>
   );
 }

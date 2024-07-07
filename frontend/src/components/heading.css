@@ -6,6 +6,14 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 2.9rem;
+    font-size: 5vw;
     margin: 0;
+}
+
+
+@media screen and (max-width: 768px) {
+    .heading {
+        font-size: 8vw;
+    }
+    
 }
