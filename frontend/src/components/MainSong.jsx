@@ -108,7 +108,7 @@ function MainSong({ onConfirm, onNewSong, setTrackFeatures, setTrackInfo }) {
                 backgroundColor: "rgb(20, 20, 20)",
                 color: "#fff",
                 fontFamily: "Montserrat",
-                maxWidth: "200px",
+                maxWidth: "25vw",
                 zIndex: "9999",
               }}
             />
@@ -152,7 +152,7 @@ function MainSong({ onConfirm, onNewSong, setTrackFeatures, setTrackInfo }) {
                 backgroundColor: "rgb(20, 20, 20)",
                 color: "#fff",
                 fontFamily: "Montserrat",
-                maxWidth: "200px",
+                maxWidth: "25vw",
                 zIndex: "9999",
               }}
             />

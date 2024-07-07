@@ -41,7 +41,7 @@ function SpotifyAuth() {
   };
 
   if (redirect) {
-    return <Navigate to="/New" />;
+    return <Navigate to="/home" />;
   }
 
   return (

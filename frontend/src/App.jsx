@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/random" element={<Random />} />
-        <Route path="/new" element={<New />} />
+        <Route path="/home" element={<New />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/termsofservice" element={<TermsOfService />} />
         <Route path="/callback" element={<Callback />} />
